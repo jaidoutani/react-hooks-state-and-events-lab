@@ -1,18 +1,28 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Item from "./Item";
 
 function ShoppingList({ items }) {
-  //console.log(items)
-  const [selectedCategory, setSelectedCategory] = useState("All")
+  // console.log(items)
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   function handleFilterChange(e) {
-    //console.log(e.target.value)
-    // console.log(selectedCategory)
-    if(selectedCategory === e.target.value) {
-      return setSelectedCategory(selectedCategory)
+    // console.log(e.target.value)
+    if (selectedCategory !== e.target.value) {
+      return setSelectedCategory(e.target.value);
     }
   }
-
+  function filterCategory(filterValue, items) {
+    let filtered = [];
+    for (let item of items) {
+      if(filterValue === 'All'){
+        return items
+      } else if (item.category === filterValue) {
+        filtered.push(item);
+      }
+    }
+    return filtered
+  }
+  items = filterCategory(selectedCategory, items)
   return (
     <div className="ShoppingList">
       <div className="Filter">
